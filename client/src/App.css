@@ -1,0 +1,153 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #121212;
+  color: #fff;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 30px 20px;
+  text-align: center;
+}
+
+h1 {
+  font-size: 2.4rem;
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  color: #aaa;
+  margin-bottom: 30px;
+}
+
+.btn {
+  background: #3b82f6;
+  color: white;
+  border: none;
+  padding: 12px 28px;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin: 8px;
+  transition: background 0.2s;
+}
+
+.btn:hover {
+  background: #2563eb;
+}
+
+.btn:disabled {
+  background: #555;
+  cursor: not-allowed;
+}
+
+.ready-btn {
+  background: #22c55e;
+  font-size: 18px;
+  padding: 14px 36px;
+}
+
+.ready-btn:hover {
+  background: #16a34a;
+}
+
+.join-block {
+  margin-top: 25px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+input {
+  padding: 12px 16px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: 1px solid #444;
+  background: #1e1e1e;
+  color: white;
+  width: 180px;
+}
+
+.room-code {
+  font-size: 1.4rem;
+  background: #1e1e1e;
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: 8px;
+  margin: 15px 0;
+}
+
+.scores {
+  margin: 15px 0;
+  font-size: 1.1rem;
+  color: #ccc;
+}
+
+.timer {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #fbbf24;
+  margin: 10px 0;
+}
+
+.video-wrapper {
+  display: inline-block;
+  border: 3px solid #333;
+  border-radius: 12px;
+  overflow: hidden;
+  margin: 15px 0;
+  background: #000;
+}
+
+canvas {
+  display: block;
+  max-width: 100%;
+}
+
+.detected {
+  font-size: 1.3rem;
+  margin: 12px 0;
+}
+
+.fixed {
+  color: #22c55e;
+  font-weight: bold;
+}
+
+.photos {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+  margin: 25px 0;
+}
+
+.player-result {
+  background: #1e1e1e;
+  padding: 15px;
+  border-radius: 12px;
+  width: 320px;
+}
+
+.photo {
+  width: 100%;
+  border-radius: 8px;
+  border: 2px solid #333;
+}
+
+.gesture-label {
+  font-size: 1.4rem;
+  margin: 10px 0 0;
+}
+
+.winner {
+  font-size: 1.6rem;
+  margin: 20px 0;
+  color: #fbbf24;
+}
