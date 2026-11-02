@@ -12,7 +12,7 @@ const io = new Server(server, {
     origin: ["http://localhost:5173", "http://127.0.0.1:5173"],
     methods: ["GET", "POST"]
   },
-  maxHttpBufferSize: 5e6 // чтобы фото проходили
+  maxHttpBufferSize: 5e6
 });
 
 const rooms = {};
@@ -20,7 +20,6 @@ const rooms = {};
 io.on('connection', (socket) => {
   console.log('Игрок подключился:', socket.id);
 
-  // Создать комнату
   socket.on('create-room', () => {
     const roomId = Math.random().toString(36).substring(2, 8);
     rooms[roomId] = {
@@ -35,7 +34,6 @@ io.on('connection', (socket) => {
     console.log(`Комната создана: ${roomId}`);
   });
 
-  // Присоединиться
   socket.on('join-room', (roomId) => {
     const room = rooms[roomId];
     if (!room) {
@@ -60,33 +58,28 @@ io.on('connection', (socket) => {
     console.log(`Игрок ${socket.id} зашёл в ${roomId}`);
   });
 
-  // Игрок нажал "Готов"
   socket.on('player-ready', (roomId) => {
     const room = rooms[roomId];
     if (!room) return;
 
     room.ready[socket.id] = true;
 
-    // Проверяем, оба ли готовы
     const bothReady = room.players.every(id => room.ready[id]);
 
     if (bothReady && room.players.length === 2) {
       room.status = 'choosing';
       room.choices = {};
-      // Сбрасываем ready для следующего раунда
       room.players.forEach(id => room.ready[id] = false);
 
       io.to(roomId).emit('start-choosing', { duration: 5 }); // 5 секунд
       console.log(`Комната ${roomId}: начало выбора`);
     } else {
-      // Сообщаем остальным, что кто-то готов
       io.to(roomId).emit('player-ready-update', {
         ready: room.ready
       });
     }
   });
 
-  // Игрок отправил жест + фото
   socket.on('submit-choice', ({ roomId, gesture, photo }) => {
   console.log('>>> Получен выбор от', socket.id, 'жест:', gesture, 'комната:', roomId);
 
@@ -134,7 +127,6 @@ io.on('connection', (socket) => {
   }
 });
 
-  // Новый раунд
   socket.on('next-round', (roomId) => {
     const room = rooms[roomId];
     if (!room) return;
@@ -148,7 +140,6 @@ io.on('connection', (socket) => {
 
   socket.on('disconnect', () => {
     console.log('Игрок отключился:', socket.id);
-    // Можно добавить очистку комнат при желании
   });
 });
 

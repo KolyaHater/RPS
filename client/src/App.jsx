@@ -5,7 +5,6 @@ import './App.css';
 const socket = io('http://127.0.0.1:3001');
 
 function App() {
-  // ===== Состояния =====
   const [status, setStatus] = useState('menu'); // menu | waiting | lobby | choosing | revealing
   const [roomId, setRoomId] = useState('');
   const [inputRoom, setInputRoom] = useState('');
@@ -19,7 +18,6 @@ function App() {
   const [currentDetected, setCurrentDetected] = useState('Покажи руку...');
   const [hasSubmitted, setHasSubmitted] = useState(false);
 
-  // ===== Refs =====
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
   const handsRef = useRef(null);
@@ -28,7 +26,6 @@ function App() {
   const timerIntervalRef = useRef(null);
   const roomIdRef = useRef('');
 
-  // ===== Socket listeners =====
   useEffect(() => {
     socket.on('room-created', (id) => {
       setRoomId(id);
@@ -48,7 +45,7 @@ function App() {
 
     socket.on('start-choosing', ({ duration }) => {
       console.log('Получил start-choosing');
-      setHasSubmitted(false);          // ← сброс
+      setHasSubmitted(false);
       setStatus('choosing');
       setTimer(duration);
       setMyGesture(null);
@@ -65,7 +62,7 @@ function App() {
     });
 
     socket.on('reset-round', () => {
-      setHasSubmitted(false);          // ← сброс
+      setHasSubmitted(false);
       setStatus('lobby');
       setIsReady(false);
       setReadyState({});
@@ -89,7 +86,6 @@ function App() {
     };
   }, []);
 
-  // ===== Таймер =====
   function startTimer(seconds) {
     setTimer(seconds);
     if (timerIntervalRef.current) clearInterval(timerIntervalRef.current);
@@ -98,7 +94,6 @@ function App() {
       setTimer((prev) => {
         if (prev <= 1) {
           clearInterval(timerIntervalRef.current);
-          // Время вышло — фиксируем жест и фото
           captureAndSubmit();
           return 0;
         }
@@ -107,9 +102,7 @@ function App() {
     }, 1000);
   }
 
-  // ===== Камера + MediaPipe =====
   function startCameraAndDetection() {
-    // Загружаем скрипты если ещё не загружены
     const loadScript = (src) => {
       return new Promise((resolve, reject) => {
         if (document.querySelector(`script[src="${src}"]`)) {
@@ -232,7 +225,6 @@ function App() {
     return 'Непонятно';
   }
 
-  // ===== Захват фото + отправка =====
   function captureAndSubmit() {
   if (hasSubmitted) {
     console.log('Уже отправлял, пропускаю');
@@ -268,7 +260,6 @@ function App() {
     photo
   });
 }
-  // ===== Действия =====
   const createRoom = () => socket.emit('create-room');
   const joinRoom = () => {
     if (inputRoom.trim()) {
@@ -287,7 +278,6 @@ function App() {
     socket.emit('next-round', roomId);
   };
 
-  // ===== Рендер =====
   if (status === 'menu') {
     return (
       <div className="container">
@@ -316,7 +306,6 @@ function App() {
     );
   }
 
-  // Lobby / Choosing / Revealing
   return (
     <div className="container">
       <h2>Комната: {roomId}</h2>
