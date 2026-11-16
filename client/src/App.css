@@ -98,7 +98,7 @@ input {
 
 .video-wrapper {
   display: inline-block;
-  border: 3px solid #333;
+  border: 3px solid #f8a409;
   border-radius: 12px;
   overflow: hidden;
   margin: 15px 0;
@@ -150,4 +150,112 @@ canvas {
   font-size: 1.6rem;
   margin: 20px 0;
   color: #fbbf24;
+}
+.cameras {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 20px 0;
+}
+
+.camera-box {
+  flex: 1;
+  min-width: 280px;
+  max-width: 420px;
+}
+
+.camera-label {
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #f8a409;
+}
+
+.remote-video {
+  width: 100%;
+  display: block;
+  background: #000;
+  border-radius: 8px;
+}
+
+.no-remote {
+  width: 100%;
+  aspect-ratio: 4/3;
+  background: #1a1a1a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #505050;
+  border-radius: 8px;
+  border: 2px dashed #333333;
+}
+
+.info {
+  color: #fbbf24;
+  margin: 8px 0;
+}
+
+.cameras .video-wrapper {
+  display: block;
+  width: 100%;
+  position: relative;
+  margin: 0;
+}
+
+.cameras canvas,
+.local-video,
+.remote-video {
+  width: 100%;
+  height: auto;
+  display: block;
+  background: #000;
+}
+
+
+.cameras.compact .camera-box {
+  max-width: 260px;
+  min-width: 200px;
+}
+
+.remote-video {
+  transition: filter 0.6s ease;
+}
+
+.remote-hidden .remote-video {
+  filter: brightness(0.12) blur(18px);
+  transform: scale(1.15);
+}
+
+.remote-cover {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  text-align: center;
+  font-size: 1.15rem;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 0 2px 8px #000;
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.mic-btn {
+  margin: 10px 0 0;
+  padding: 8px 16px;
+  font-size: 14px;
+}
+
+.no-photo {
+  aspect-ratio: 4 / 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #777;
+  background: #151515;
+}
+
+h2, h3, h4 {
+  color: #fff;
 }
